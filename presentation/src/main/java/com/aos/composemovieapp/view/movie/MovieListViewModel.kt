@@ -3,6 +3,7 @@ package com.aos.composemovieapp.view.movie
 import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aos.composemovieapp.view.util.Date
 import com.aos.domain.use_case.GetBookListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +17,7 @@ class MovieListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            getMovieListUseCase("20250302")
+            getMovieListUseCase(Date.getYesterday())
         }
     }
 

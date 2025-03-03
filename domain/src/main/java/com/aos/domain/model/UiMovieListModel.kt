@@ -8,7 +8,7 @@ data class UiMovieListModel(
     val movieNm: String, // 영화명
     val openDt: String, // 개봉일
     val rank: String, // 순위
-    val rankInten: String, // 순의 증감분
+    val rankInten: String, // 순위 증감분
     val rankOldAndNew: String, // 신규진입 여부
     val rnum: String, // 순번
 )
