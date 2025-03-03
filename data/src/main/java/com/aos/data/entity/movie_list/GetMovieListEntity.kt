@@ -12,15 +12,14 @@ fun GetMovieListEntity.toMovieListModel(): List<UiMovieListModel> {
     return this.boxOfficeResult.dailyBoxOfficeList.map {
         UiMovieListModel(
             audiAcc = it.audiAcc,
-            audiChange = it.audiChange,
-            audiCnt = it.audiCnt,
+            audiChange = "${it.audiChange}%",
             movieCd = it.movieCd,
             movieNm = it.movieNm,
             openDt = it.openDt,
-            rank = it.rank,
+            rank = "${it.rank}위",
             rankInten = it.rankInten,
             rankOldAndNew = it.rankOldAndNew,
-            rnum = it.rnum
+            rnum = it.rnum.toInt() - 1
         )
     }
 }
