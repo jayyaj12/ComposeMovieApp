@@ -10,6 +10,13 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
+    resolutionStrategy {
+        eachPlugin {
+            if( requested.id.id == "dagger.hilt.android.plugin") {
+                useModule("com.google.dagger:hilt-android-gradle-plugin:2.55")
+            }
+        }
+    }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -20,5 +27,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "ComposeMovieApp"
-include(":app")
- 
+include(":presentation")
+include(":domain")
+include(":data")
