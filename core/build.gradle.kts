@@ -4,8 +4,8 @@ plugins {
 }
 
 android {
-    namespace = "com.aos.domain"
-    compileSdk = 35
+    namespace = "com.aos.core"
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
@@ -24,21 +24,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
     }
 }
 
 dependencies {
-    implementation(project(":core"))
 
-    implementation(libs.androidx.paging.runtime) // 최신 버전 확인 후 사용
-    implementation(libs.androidx.paging.compose)
-
-    implementation(libs.hilt.android)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

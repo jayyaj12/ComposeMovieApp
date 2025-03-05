@@ -30,3 +30,4 @@ rootProject.name = "ComposeMovieApp"
 include(":presentation")
 include(":domain")
 include(":data")
+include(":core")

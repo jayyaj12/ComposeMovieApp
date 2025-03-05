@@ -1,6 +1,5 @@
-package com.aos.composemovieapp.view.util
+package com.aos.core.util
 
-import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
