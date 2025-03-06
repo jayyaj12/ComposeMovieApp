@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -32,18 +33,23 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.aos.composemovieapp.base.BaseComponentActivity
 import com.aos.composemovieapp.view.ui.theme.ComposeMovieAppTheme
 import com.aos.domain.model.UiMovieListModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MovieListScreen : ComponentActivity() {
+class MovieListScreen : BaseComponentActivity<MovieListViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContent {
             ComposeMovieAppTheme {
-                MovieListUi()
+                Box(modifier = Modifier.fillMaxSize()) {
+                    MovieListUi()
+                    EventUi()
+                }
             }
         }
     }
@@ -52,13 +58,16 @@ class MovieListScreen : ComponentActivity() {
 @Composable
 fun MovieListUi(viewModel: MovieListViewModel = hiltViewModel()) {
     val movieList by viewModel.movieList.collectAsState() // ✅ `StateFlow` 사용
+    val event by viewModel.baseStateFlow.collectAsState()
 
     LazyColumn {
         items(movieList) { movie ->
             MovieItem(item = movie)
             HorizontalDivider()
         }
+
     }
+
 }
 
 @Composable

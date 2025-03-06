@@ -27,8 +27,8 @@ class MovieListViewModel @Inject constructor(
     val movieList: StateFlow<List<UiMovieListModel>> get() = _movieList
 
     init {
+        baseEvent(Event.ShowLoading)
         viewModelScope.launch(Dispatchers.IO) {
-
             getMovieListUseCase(Date.getYesterday()).onSuccess {
                 baseEvent(Event.HideLoading)
                 _movieList.emit(it)

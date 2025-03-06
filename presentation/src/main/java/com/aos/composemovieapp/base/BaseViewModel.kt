@@ -5,22 +5,25 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aos.composemovieapp.util.MutableEventFlow
 import com.aos.composemovieapp.util.asEventFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel() {
-    private val _baseEventFlow = MutableEventFlow<Event>()
-    val baseEventFlow = _baseEventFlow.asEventFlow()
+    private val _baseStateFlow = MutableStateFlow<Event>(Event.Nothing)
+    val baseStateFlow = _baseStateFlow.asStateFlow()
     fun baseEvent(event: Event) {
         viewModelScope.launch {
-            _baseEventFlow.emit(event)
+            _baseStateFlow.emit(event)
         }
     }
     sealed class Event {
         data class ShowToast(val message: String) : Event()
         data class ShowToastRes(@StringRes val message: Int) : Event()
-        data class ShowSuccessToast(val message: String) : Event()
-        data class ShowSuccessToastRes(@StringRes val message: Int) : Event()
+//        data class ShowSuccessToast(val message: String) : Event()
+//        data class ShowSuccessToastRes(@StringRes val message: Int) : Event()
         
+        object Nothing: Event()
         object ShowLoading: Event()
         object HideLoading: Event()
         object ExpiredToken: Event()
