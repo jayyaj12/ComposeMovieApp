@@ -61,9 +61,12 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":core"))
 
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+    implementation(libs.androidx.paging.runtime) // 최신 버전 확인 후 사용
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.kotlinx.serialization.json)
     implementation("com.google.dagger:hilt-android:2.55")
     kapt("com.google.dagger:hilt-android-compiler:2.55")
     implementation(libs.timber)

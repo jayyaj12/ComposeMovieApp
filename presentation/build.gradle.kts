@@ -74,6 +74,10 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
+
+    implementation(libs.androidx.paging.runtime) // 최신 버전 확인 후 사용
+    implementation(libs.androidx.paging.compose)
     implementation(project(":data"))
     implementation(project(":domain"))
 
