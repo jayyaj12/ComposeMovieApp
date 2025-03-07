@@ -1,4 +1,4 @@
-package com.aos.util
+package com.aos.data.network.state
 
 import java.io.IOException
 

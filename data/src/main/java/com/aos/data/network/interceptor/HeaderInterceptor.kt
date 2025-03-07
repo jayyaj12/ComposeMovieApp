@@ -1,12 +1,9 @@
-package com.aos.data.util
+package com.aos.data.network.interceptor
 
 import com.aos.data.BuildConfig
-import kotlinx.coroutines.runBlocking
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Response
-import timber.log.Timber
-import javax.inject.Inject
 
 class HeaderInterceptor(): Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {

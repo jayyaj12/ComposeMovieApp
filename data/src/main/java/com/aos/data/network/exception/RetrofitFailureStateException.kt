@@ -1,4 +1,4 @@
-package com.aos.data.util
+package com.aos.data.network.exception
 
 class RetrofitFailureStateException(error: String ?, val code: Int) : Exception(error) {
 }

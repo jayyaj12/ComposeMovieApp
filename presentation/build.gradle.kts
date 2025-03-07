@@ -75,12 +75,13 @@ android {
 
 dependencies {
     implementation(project(":core"))
-
-    implementation(libs.androidx.paging.runtime) // 최신 버전 확인 후 사용
-    implementation(libs.androidx.paging.compose)
     implementation(project(":data"))
     implementation(project(":domain"))
 
+
+    implementation(libs.accompanist.flowlayout)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.kotlinx.serialization.json)

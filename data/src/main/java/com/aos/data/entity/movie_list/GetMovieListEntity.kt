@@ -1,6 +1,6 @@
 package com.aos.data.entity.movie_list
 
-import com.aos.domain.model.UiMovieListModel
+import com.aos.domain.model.movie.UiMovieListModel
 import kotlinx.serialization.Serializable
 import java.text.NumberFormat
 import java.util.Locale

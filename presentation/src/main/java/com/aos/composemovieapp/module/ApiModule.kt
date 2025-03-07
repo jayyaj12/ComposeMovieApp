@@ -1,15 +1,14 @@
 package com.aos.composemovieapp.module
 
 import com.aos.composemovieapp.BuildConfig
-import com.aos.data.util.CustomCallAdapterFactory
-import com.aos.data.util.HeaderInterceptor
+import com.aos.data.network.adapter.CustomCallAdapterFactory
+import com.aos.data.network.interceptor.HeaderInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
-import okhttp3.Authenticator
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

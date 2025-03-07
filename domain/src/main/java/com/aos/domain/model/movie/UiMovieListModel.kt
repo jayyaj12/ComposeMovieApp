@@ -1,4 +1,4 @@
-package com.aos.domain.model
+package com.aos.domain.model.movie
 
 data class UiMovieListModel(
     val audiAcc: String, // 누적 관객수

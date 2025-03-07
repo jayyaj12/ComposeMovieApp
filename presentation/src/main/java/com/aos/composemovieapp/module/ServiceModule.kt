@@ -1,6 +1,6 @@
 package com.aos.composemovieapp.module
 
-import com.aos.data.api.MovieService
+import com.aos.data.network.api.MovieService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

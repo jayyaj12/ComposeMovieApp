@@ -1,10 +1,5 @@
-package com.aos.composemovieapp.view.movie
+package com.aos.composemovieapp.view.movie.list
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,52 +12,42 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.LoadState
-import androidx.paging.compose.collectAsLazyPagingItems
-import com.aos.composemovieapp.base.BaseComponentActivity
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.aos.composemovieapp.view.Screen
 import com.aos.composemovieapp.view.ui.theme.ComposeMovieAppTheme
-import com.aos.domain.model.UiMovieListModel
+import com.aos.domain.model.movie.UiMovieListModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
-@AndroidEntryPoint
-class MovieListScreen : BaseComponentActivity<MovieListViewModel>() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        enableEdgeToEdge()
-        setContent {
-            ComposeMovieAppTheme {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    MovieListUi()
-                    EventUi()
-                }
-            }
-        }
+@Composable
+fun MovieListScreen(navController: NavController) {
+    Box(modifier = Modifier.fillMaxSize())
+    {
+        MovieListUi(navController = navController)
     }
 }
 
 @Composable
-fun MovieListUi(viewModel: MovieListViewModel = hiltViewModel()) {
-    val movieList by viewModel.movieList.collectAsState() // ✅ `StateFlow` 사용
-    val event by viewModel.baseStateFlow.collectAsState()
+fun MovieListUi(navController: NavController, viewModel: MovieListViewModel = hiltViewModel()) {
+    val movieState = viewModel.movieList.value
 
     LazyColumn {
-        items(movieList) { movie ->
-            MovieItem(item = movie)
+        items(movieState.movies) { movie ->
+            MovieItem(item = movie, onItemClick = {
+                navController.navigate(Screen.MovieDetailScreen.route + "/${movie.movieCd}")
+            })
             HorizontalDivider()
         }
 
@@ -71,12 +56,20 @@ fun MovieListUi(viewModel: MovieListViewModel = hiltViewModel()) {
 }
 
 @Composable
-fun MovieItem(item: UiMovieListModel, modifier: Modifier = Modifier) {
+fun MovieItem(
+    item: UiMovieListModel,
+    modifier: Modifier = Modifier,
+    onItemClick: (UiMovieListModel) -> Unit,
+) {
     Surface(
         modifier = modifier
             .fillMaxWidth()
             .height(120.dp)
-            .padding(8.dp)
+            .padding(8.dp),
+        onClick = {
+            onItemClick(item)
+        },
+        color = Color.White
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             Box(modifier = Modifier.fillMaxSize()) {
@@ -121,7 +114,7 @@ fun MovieItem(item: UiMovieListModel, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     ComposeMovieAppTheme {
-        MovieListUi()
+        MovieListUi(rememberNavController())
     }
 }
 
@@ -140,7 +133,8 @@ fun MovieItemPreview() {
                 rankInten = "-",
                 rankOldAndNew = "labores",
                 rnum = 2158
-            )
+            ),
+            onItemClick = {}
         )
     }
 }
