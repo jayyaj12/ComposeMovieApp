@@ -34,29 +34,29 @@ abstract class BaseComponentActivity<VM: BaseViewModel>: ComponentActivity() {
         { defaultViewModelCreationExtras },
     )
 
-    @Composable
-    protected open fun EventUi() {
-        val event by viewModel.baseStateFlow.collectAsState()
-        var isLoading by remember { mutableStateOf(false) }
-
-        when(event) {
-            is BaseViewModel.Event.ShowLoading -> isLoading = true
-            is BaseViewModel.Event.HideLoading -> isLoading = false
-            is BaseViewModel.Event.ExpiredToken -> { TODO() }
-            is BaseViewModel.Event.ShowToast -> Toast.makeText(LocalContext.current, (event as BaseViewModel.Event.ShowToast).message, Toast.LENGTH_SHORT).show()
-            is BaseViewModel.Event.ShowToastRes -> Toast.makeText(LocalContext.current, (event as BaseViewModel.Event.ShowToastRes).message, Toast.LENGTH_SHORT).show()
-            is BaseViewModel.Event.Nothing -> {  }
-        }
-
-        Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center){
-            LoadingUi(isLoading)
-        }
-    }
-
-    @Composable
-    fun LoadingUi(isLoading: Boolean) {
-        if(isLoading) {
-            CircularProgressIndicator()
-        }
-    }
+//    @Composable
+//    protected open fun EventUi() {
+//        val event by viewModel.baseStateFlow.collectAsState()
+//        var isLoading by remember { mutableStateOf(false) }
+//
+//        when(event) {
+//            is BaseViewModel.Event.ShowLoading -> isLoading = true
+//            is BaseViewModel.Event.HideLoading -> isLoading = false
+//            is BaseViewModel.Event.ExpiredToken -> { TODO() }
+//            is BaseViewModel.Event.ShowToast -> Toast.makeText(LocalContext.current, (event as BaseViewModel.Event.ShowToast).message, Toast.LENGTH_SHORT).show()
+//            is BaseViewModel.Event.ShowToastRes -> Toast.makeText(LocalContext.current, (event as BaseViewModel.Event.ShowToastRes).message, Toast.LENGTH_SHORT).show()
+//            is BaseViewModel.Event.Nothing -> {  }
+//        }
+//
+//        Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center){
+//            LoadingUi(isLoading)
+//        }
+//    }
+//
+//    @Composable
+//    fun LoadingUi(isLoading: Boolean) {
+//        if(isLoading) {
+//            CircularProgressIndicator()
+//        }
+//    }
 }

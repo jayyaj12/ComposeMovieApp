@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,9 +24,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.aos.composemovieapp.base.BaseViewModel
+import com.aos.composemovieapp.view.movie.common.UiEventHandler
 import com.aos.composemovieapp.view.ui.theme.ComposeMovieAppTheme
 import com.aos.domain.model.movie.Actor
 import com.aos.domain.model.movie.UiMovieModel
+import timber.log.Timber
 
 @Composable
 fun MovieDetailScreen() {
@@ -37,6 +41,7 @@ fun MovieDetailScreen() {
 @Composable
 fun TopLevel(modifier: Modifier = Modifier, viewModel: MovieDetailViewModel = hiltViewModel()) {
     val movieState by viewModel.movie
+    val event by viewModel.baseStateFlow.collectAsState(BaseViewModel.Event.Nothing)
 
     Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         Column {
@@ -50,7 +55,10 @@ fun TopLevel(modifier: Modifier = Modifier, viewModel: MovieDetailViewModel = hi
             Spacer(Modifier.size(8.dp))
             NationUi(movieState.movie.nations)
         }
+
+        UiEventHandler.EventUi(event = event)
     }
+
 }
 
 @Composable

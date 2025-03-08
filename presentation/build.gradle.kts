@@ -87,6 +87,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.timber)
     implementation("com.google.dagger:hilt-android:2.55")
+    implementation(libs.androidx.lifecycle.runtime.compose.android)
     kapt("com.google.dagger:hilt-android-compiler:2.55")
     implementation(libs.retrofit)
     implementation(libs.logging.interceptor)

@@ -16,6 +16,9 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,16 +26,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.aos.composemovieapp.MainViewModel
+import com.aos.composemovieapp.base.BaseViewModel
 import com.aos.composemovieapp.view.Screen
+import com.aos.composemovieapp.view.movie.common.UiEventHandler
 import com.aos.composemovieapp.view.ui.theme.ComposeMovieAppTheme
 import com.aos.domain.model.movie.UiMovieListModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @Composable
-fun MovieListScreen(navController: NavController) {
+fun MovieListScreen(navController: NavController, mainViewModel: MainViewModel = hiltViewModel()) {
     Box(modifier = Modifier.fillMaxSize())
     {
         MovieListUi(navController = navController)
@@ -42,17 +49,20 @@ fun MovieListScreen(navController: NavController) {
 @Composable
 fun MovieListUi(navController: NavController, viewModel: MovieListViewModel = hiltViewModel()) {
     val movieState = viewModel.movieList.value
+    val event by viewModel.baseStateFlow.collectAsState(BaseViewModel.Event.Nothing)
 
-    LazyColumn {
-        items(movieState.movies) { movie ->
-            MovieItem(item = movie, onItemClick = {
-                navController.navigate(Screen.MovieDetailScreen.route + "/${movie.movieCd}")
-            })
-            HorizontalDivider()
+    Box {
+        LazyColumn {
+            items(movieState.movies) { movie ->
+                MovieItem(item = movie, onItemClick = {
+                    navController.navigate(Screen.MovieDetailScreen.route + "/${movie.movieCd}")
+                })
+                HorizontalDivider()
+            }
         }
 
+        UiEventHandler.EventUi(event = event)
     }
-
 }
 
 @Composable

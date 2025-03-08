@@ -8,7 +8,9 @@ import com.aos.core.util.Date
 import com.aos.domain.use_case.GetMovieListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,7 +29,7 @@ class MovieListViewModel @Inject constructor(
                 _movieList.value = MovieListState(movies = it)
             }.onFailure {
                 _movieList.value = MovieListState(error = it.message ?: "UnKnownError")
-                baseEvent(Event.HideLoading)
+                baseEvent(Event.ShowErrorToast("데이터를 불러오는데 실패하였습니다."))
             }
         }
     }
